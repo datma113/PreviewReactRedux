@@ -1,0 +1,3 @@
+export const GET_PRODUCT = 'GET_PRODUCT'
+export const GET_PLAINTEXT_1 = 'GET_PLAINTEXT_1'
+export const GET_PLAINTEXT_2 = 'GET_PLAINTEXT_2'
