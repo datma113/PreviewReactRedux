@@ -4,15 +4,30 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./routes";
 import "./css/styles.css";
 import { useDispatch } from "react-redux";
-import Input from './components/Input'
+import Input from "./components/Input";
 
-import {getProduct, getPlaintext1, getPlaintext2} from './redux/action/actProduct'
+import { getProduct, saveValueOfInputToStore } from "./redux/action/actProduct";
 
 function App() {
-  
-    const dispatch = useDispatch()
-    const placeHolder1 = "place 1"
-    const placeHolder2 = "place 2"
+    const dispatch = useDispatch();
+
+    const placeHolderAndKeyOfInputComponents = [
+        { key: "name", placeHolder: "input your name" },
+        { key: "age", placeHolder: "input your age" },
+        { key: "dob", placeHolder: "input your day of birth" },
+
+    ];
+    const placeHolderAndKeyOfInputComponentsMap = placeHolderAndKeyOfInputComponents.map(
+        (element, index) => {
+            return <Input
+            placeHolder={element.placeHolder}
+            keyOfValue={element.key}
+
+            action={saveValueOfInputToStore}
+            key={index}
+        />
+        }
+    );
 
     let arr = [
         { name: "a", age: 10 },
@@ -26,20 +41,23 @@ function App() {
         );
     });
 
-
     const saveDataToStore = () => {
         dispatch(getProduct(arr));
-    }
-    
+    };
 
     return (
         <Router>
             <div className="container">
                 <div className="App container">bấm nút để lưu vào store</div>
-                <button className="btn btn-dark" onClick={() => saveDataToStore()}> click </button>
-                <Input placeHolder={placeHolder1} action={getPlaintext1}/>
-                <Input placeHolder={placeHolder2}  action={getPlaintext2}/>
-        
+                <button className="btn btn-dark" onClick={() => saveDataToStore()}>
+                    {" "}
+                    click{" "}
+                </button>
+
+                <div>
+                    {placeHolderAndKeyOfInputComponentsMap}
+                </div>
+                
             </div>
             <Nav />
             <Switch>{routesMap}</Switch>

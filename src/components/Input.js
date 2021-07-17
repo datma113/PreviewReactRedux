@@ -2,10 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-const Input = ( {placeHolder, action} ) => {
+const Input = ( {placeHolder, action, keyOfValue} ) => {
      const dispatch = useDispatch()
      const getValue = (e) => {
-          dispatch(action(e.target.value))
+          const { value } = e.target
+          console.log(keyOfValue, value)
+          dispatch(action(keyOfValue, value))
      }
      
      return (

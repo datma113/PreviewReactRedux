@@ -1,4 +1,5 @@
-import { GET_PRODUCT, GET_PLAINTEXT_1, GET_PLAINTEXT_2 } from "../constants/types";
+import axios from "axios";
+import { GET_PRODUCT, VALUE_OF_INPUT_COMPONENT, SET_PRODUCTS } from "../constants/types";
 
 export const getProduct = (products) => {
     return {
@@ -7,15 +8,33 @@ export const getProduct = (products) => {
     };
 };
 
-export const getPlaintext1 = (text1) => {
+export const saveValueOfInputToStore = (key, value) => {
      return {
-          type: GET_PLAINTEXT_1,
-          text1
+          type: VALUE_OF_INPUT_COMPONENT,
+          key,
+          value
      }
 }
-export const getPlaintext2 = (text2) => {
+
+
+export const setProducts = (products) => {
      return {
-          type: GET_PLAINTEXT_2,
-          text2
+          type: SET_PRODUCTS,
+          products
+     }
+}
+
+export const getProducts = () => {
+     const url = "http://localhost:8080/quan-ao-tre-em/api/products";
+     
+     return dispatch => {
+          return axios
+          .get(url)
+          .then(resp => {
+               dispatch(setProducts(resp.data))
+          })
+          .catch(err => {
+               console.log(err)
+          })
      }
 }
